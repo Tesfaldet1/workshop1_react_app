@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const DataTable = () => {
-  const [studenList, setStudenList] = useState([
+  const [studentList, setStudentList] = useState([
     {
       id: 1,
       firstName: "Tesfaldet",
@@ -39,29 +39,58 @@ const DataTable = () => {
       city: "Senafe",
     },
   ]);
-  return (
-    <table>
-      <tr>
-        <th>ID </th>
-        <th>FirstName</th>
-        <th>LastName</th>
-        <th>Age</th>
-        <th>Birthdate</th>
-        <th>Country</th>
-        <th>City</th>
-      </tr>
-      <tbody>
+
+  const TableHeader = () => {
+    return (
+      <thead>
         <tr>
-          <td>1</td>
-          <td>Tesfaldet</td>
-          <td>Weldemicheal</td>
-          <td>33</td>
-          <td>1989-12-10</td>
-          <td>Eritrea</td>
-          <td>sernafe</td>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Age</th>
+          <th>Birthdate</th>
+          <th>Country</th>
+          <th>City</th>
+          <th>Action</th>
         </tr>
-      </tbody>
-    </table>
+      </thead>
+    );
+  };
+  const TableAction = ({ id }) => {
+    const handleDelete = () => {
+      const updatedList = studentList.filter((student) => student.id !== id);
+      setStudentList(updatedList);
+    };
+
+    return <button onClick={handleDelete}>Delete</button>;
+  };
+  const TableRow = ({ props }) => {
+    return (
+      <tr>
+        <td>{props.id}</td>
+        <td>{props.firstName}</td>
+        <td>{props.lastName}</td>
+        <td>{props.age}</td>
+        <td>{props.birthdate}</td>
+        <td>{props.country}</td>
+        <td>{props.city}</td>
+        <td>
+          <TableAction id={props.id} />
+        </td>
+      </tr>
+    );
+  };
+  return (
+    <div className="card">
+      <table className="table table-dark table-striped">
+        <TableHeader />
+        <tbody className="card-body">
+          {studentList.map((props) => (
+            <TableRow key={props.id} props={props} />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
