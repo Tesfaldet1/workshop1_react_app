@@ -39,7 +39,8 @@ const DataTable = () => {
       city: "Senafe",
     },
   ]);
-
+  const [student, setStudent] = useState({});
+  const [showDetails, setShowDetails] = useState(false);
   const TableHeader = () => {
     return (
       <thead>
@@ -57,13 +58,40 @@ const DataTable = () => {
     );
   };
   const TableAction = ({ id }) => {
-    const handleDelete = () => {
-      const updatedList = studentList.filter((student) => student.id !== id);
-      setStudentList(updatedList);
+    const handleShowDetails = () => {
+      const selectedStudent = studentList.find((student) => student.id === id);
+      setStudent(selectedStudent);
+      setShowDetails(true);
     };
-
-    return <button onClick={handleDelete}>Delete</button>;
+    const handleHideDetails = () => {
+      setShowDetails(false);
+    };
+    return (
+      <>
+        <button onClick={handleShowDetails}>Details</button>
+        {showDetails && (
+          <>
+            <ShowStudentDetails student={student} />
+            <button onClick={handleHideDetails}>Hide</button>
+          </>
+        )}
+      </>
+    );
   };
+  const ShowStudentDetails = ({ student }) => {
+    return (
+      <div>
+        <p>ID: {student.id}</p>
+        <p>First Name: {student.firstName}</p>
+        <p>Last Name: {student.lastName}</p>
+        <p>Age: {student.age}</p>
+        <p>Birthdate: {student.birthdate}</p>
+        <p>Country: {student.country}</p>
+        <p>City: {student.city}</p>
+      </div>
+    );
+  };
+
   const TableRow = ({ props }) => {
     return (
       <tr>
