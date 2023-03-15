@@ -41,7 +41,7 @@ const DataTable = () => {
   ]);
   return (
     <table>
-      <th>
+      <tr>
         <th>ID </th>
         <th>FirstName</th>
         <th>LastName</th>
@@ -49,8 +49,18 @@ const DataTable = () => {
         <th>Birthdate</th>
         <th>Country</th>
         <th>City</th>
-        <th>Action</th>
-      </th>
+      </tr>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Tesfaldet</td>
+          <td>Weldemicheal</td>
+          <td>33</td>
+          <td>1989-12-10</td>
+          <td>Eritrea</td>
+          <td>sernafe</td>
+        </tr>
+      </tbody>
     </table>
   );
 };
